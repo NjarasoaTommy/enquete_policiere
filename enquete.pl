@@ -28,7 +28,9 @@ owns_fake_identity(sophie, escroquerie).
 
 % Règles
 is_guilty(Suspect, vol) :-
-
+    has_motive(Suspect, vol).
+    was_near_crime_scene(Suspect, vol).
+    has_fingerprint_on_weapon(Suspect, vol).
 
 is_guilty(Suspect, assassinat) :-
     has_motive(Suspect, assassinat),
