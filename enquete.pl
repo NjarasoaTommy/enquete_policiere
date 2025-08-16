@@ -1,5 +1,7 @@
 % Types de crime
 crime_type(assassinat).
+crime_type(vol).
+crime_type(escroquerie).
 
 
 % Faits
