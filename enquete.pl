@@ -1,5 +1,4 @@
 % Types de crime
-
 crime_type(assassinat).
 
 
@@ -24,7 +23,8 @@ has_bank_transaction(alice, escroquerie).
 has_bank_transaction(bruno, escroquerie).
 owns_fake_identity(sophie, escroquerie).
 
-% Règles
+
+% RÃ¨gles
 is_guilty(Suspect, vol) :-
 
 
@@ -38,12 +38,13 @@ is_guilty(Suspect, assassinat) :-
 is_guilty(Suspect, escroquerie) :-
 
 
-% Entrée principale
+
+% EntrÃ©e principale
 main :-
     current_input(Input),
     read(Input, crime(Suspect, CrimeType)),
     (   is_guilty(Suspect, CrimeType) ->
         writeln(guilty)
     ;   writeln(not_guilty)
-    ),
-    halt.
+    ),
+    halt.
