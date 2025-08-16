@@ -40,7 +40,9 @@ is_guilty(Suspect, assassinat) :-
     ).
 
 is_guilty(Suspect, escroquerie) :-
-
+    has_motive(Suspect, escroquerie).
+    has_bank_transaction(Suspect, escroquerie).
+    owns_fake_identity(Suspect, escroquerie).
 
 
 % Entrée principale
