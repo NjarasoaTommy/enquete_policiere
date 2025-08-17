@@ -12,17 +12,18 @@ suspect(bruno).
 suspect(sophie).
 
 has_motive(john, vol).
-was_near_crime_scene(john, vol).
-has_fingerprint_on_weapon(john, vol).
-
 has_motive(mary, assassinat).
+has_motive(alice, escroquerie).
+
+was_near_crime_scene(john, vol).
 was_near_crime_scene(mary, assassinat).
+
+has_fingerprint_on_weapon(john, vol).
 has_fingerprint_on_weapon(mary, assassinat).
 
-has_motive(alice, escroquerie).
 has_bank_transaction(alice, escroquerie).
-
 has_bank_transaction(bruno, escroquerie).
+
 owns_fake_identity(sophie, escroquerie).
 
 
