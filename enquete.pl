@@ -2,6 +2,8 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_json)).
+:- use_module(library(http/http_cors)).
+
 
 % Types de crime
 crime_type(assassinat).
@@ -51,23 +53,21 @@ is_guilty(Suspect, escroquerie) :-
     owns_fake_identity(Suspect, escroquerie).
 
 
-% Entrée principale
-main :-
-    current_input(Input),
-    read(Input, crime(Suspect, CrimeType)),
-    (   is_guilty(Suspect, CrimeType) ->
-        writeln(guilty)
-    ;   writeln(not_guilty)
-    ),
-    halt.
-
+% Activer CORS globalement
+:- set_setting(http:cors, [*]).
 
 % Déclaration de la route de jugement
 :- http_handler(root(juger), judge, []).
 
 % Route(middleware) : /juger
-judge(_Request) :-
-    reply_json_dict(_{message:"Bonjour depuis Prolog!"}).
+judge(Request) :-
+    cors_enable(Request, [methods([get,post,options])]),  % Autoriser GET, POST, OPTIONS
+    http_read_json_dict(Request, DictIn),
+    
+    is_guilty(DictIn.nom, DictIn.crime) ->
+        reply_json_dict(_{result : "guilty"});
+        reply_json_dict(_{result : "not_guilty"}).
+
 
 % Lancer le serveur sur le port 8080
 server(Port) :-
