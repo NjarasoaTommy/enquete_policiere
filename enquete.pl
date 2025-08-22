@@ -63,8 +63,12 @@ is_guilty(Suspect, escroquerie) :-
 judge(Request) :-
     cors_enable(Request, [methods([get,post,options])]),  % Autoriser GET, POST, OPTIONS
     http_read_json_dict(Request, DictIn),
+
+        
+    atom_string(Nom_atom, DictIn.nom),
+    atom_string(Crime_atom, DictIn.crime),
     
-    is_guilty(DictIn.nom, DictIn.crime) ->
+    is_guilty(Nom_atom, Crime_atome) ->
         reply_json_dict(_{result : "guilty"});
         reply_json_dict(_{result : "not_guilty"}).
 
