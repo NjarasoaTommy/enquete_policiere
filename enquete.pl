@@ -1,3 +1,8 @@
+% Importation des modules nécessaires
+:- use_module(library(http/thread_httpd)).
+:- use_module(library(http/http_dispatch)).
+:- use_module(library(http/http_json)).
+
 % Types de crime
 crime_type(assassinat).
 crime_type(vol).
@@ -55,3 +60,15 @@ main :-
     ;   writeln(not_guilty)
     ),
     halt.
+
+
+% Déclaration de la route de jugement
+:- http_handler(root(juger), judge, []).
+
+% Route(middleware) : /juger
+judge(_Request) :-
+    reply_json_dict(_{message:"Bonjour depuis Prolog!"}).
+
+% Lancer le serveur sur le port 8080
+server(Port) :-
+    http_server(http_dispatch, [port(Port)]).
