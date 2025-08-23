@@ -62,6 +62,9 @@ is_guilty(Suspect, escroquerie) :-
 % Déclaration de la route de liste des personnes accusées
 :- http_handler(root(list_personnes_jugee), list_personnes, []).
 
+% Déclaration de la route de liste des crimes
+:- http_handler(root(list_crime), list_crimes, []).
+
 % Route(middleware) : /juger
 judge(Request) :-
     cors_enable(Request, [methods([get,post,options])]),  % Autoriser GET, POST, OPTIONS
@@ -70,7 +73,7 @@ judge(Request) :-
     atom_string(Nom_atom, DictIn.nom),
     atom_string(Crime_atom, DictIn.crime),
     
-    is_guilty(Nom_atom, Crime_atome) ->
+    is_guilty(Nom_atom, Crime_atom) ->
         reply_json_dict(_{result : "guilty"});
         reply_json_dict(_{result : "not_guilty"}).
 
@@ -79,6 +82,12 @@ judge(Request) :-
 list_personnes(Request) :-
     cors_enable(Request, [methods([get,options])]),
     findall(_{nom:Nom, crime:CrimeType}, has_motive(Nom, CrimeType), Liste),
+    reply_json_dict(Liste).
+
+% Lister toutes les crimes (middleware) : /list_crime
+list_crimes(Request) :-
+    cors_enable(Request, [methods([get,options])]),
+    findall(CrimeType, crime_type(CrimeType), Liste),
     reply_json_dict(Liste).
 
 
