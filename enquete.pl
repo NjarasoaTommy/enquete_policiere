@@ -65,6 +65,9 @@ is_guilty(Suspect, escroquerie) :-
 % Déclaration de la route de liste des crimes
 :- http_handler(root(list_crime), list_crimes, []).
 
+% Déclaration de la route de liste des faits pour un accusé
+:- http_handler(root(list_faits), list_facts, []).
+
 % Route(middleware) : /juger
 judge(Request) :-
     cors_enable(Request, [methods([get,post,options])]),  % Autoriser GET, POST, OPTIONS
@@ -89,6 +92,40 @@ list_crimes(Request) :-
     cors_enable(Request, [methods([get,options])]),
     findall(CrimeType, crime_type(CrimeType), Liste),
     reply_json_dict(Liste, []).
+
+
+
+% Prédicat helper pour trouver tous les faits concernant une personne et un crime
+get_fact_for_person_crime(Nom, Crime, has_motive) :-
+    has_motive(Nom, Crime).
+
+get_fact_for_person_crime(Nom, Crime, was_near_crime_scene) :-
+    was_near_crime_scene(Nom, Crime).
+
+get_fact_for_person_crime(Nom, Crime, has_fingerprint_on_weapon) :-
+    has_fingerprint_on_weapon(Nom, Crime).
+
+get_fact_for_person_crime(Nom, Crime, has_bank_transaction) :-
+    has_bank_transaction(Nom, Crime).
+
+get_fact_for_person_crime(Nom, Crime, owns_fake_identity) :-
+    owns_fake_identity(Nom, Crime).
+
+get_fact_for_person_crime(Nom, Crime, eyewitness_identification) :-
+    eyewitness_identification(Nom, Crime).
+
+get_all_facts(Nom, Crime, Facts) :-
+    findall(FactString, (get_fact_for_person_crime(Nom, Crime, Fact), atom_string(Fact, FactString)), FactList),
+    list_to_set(FactList, Facts).
+
+list_facts(Request) :-
+    cors_enable(Request, [methods([get, post, options])]),
+    http_read_json_dict(Request, JSONDict),
+    atom_string(Nom_atom, JSONDict.nom),
+    atom_string(Crime_atom, JSONDict.crime),
+    get_all_facts(Nom_atom, Crime_atom, Facts),
+    reply_json_dict(_{nom: JSONDict.nom, crime: JSONDict.crime, facts: Facts}, []).
+
 
 
 % Lancer le serveur sur le port 8080
