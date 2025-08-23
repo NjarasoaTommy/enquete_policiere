@@ -74,21 +74,21 @@ judge(Request) :-
     atom_string(Crime_atom, DictIn.crime),
     
     is_guilty(Nom_atom, Crime_atom) ->
-        reply_json_dict(_{result : "guilty"});
-        reply_json_dict(_{result : "not_guilty"}).
+        reply_json_dict(_{result : "guilty"}, []);
+        reply_json_dict(_{result : "not_guilty"}, []).
 
 
 % Lister toutes les personnes accusées (middleware) : /list_personnes_jugee
 list_personnes(Request) :-
     cors_enable(Request, [methods([get,options])]),
     findall(_{nom:Nom, crime:CrimeType}, has_motive(Nom, CrimeType), Liste),
-    reply_json_dict(Liste).
+    reply_json_dict(Liste, []).
 
 % Lister toutes les crimes (middleware) : /list_crime
 list_crimes(Request) :-
     cors_enable(Request, [methods([get,options])]),
     findall(CrimeType, crime_type(CrimeType), Liste),
-    reply_json_dict(Liste).
+    reply_json_dict(Liste, []).
 
 
 % Lancer le serveur sur le port 8080
