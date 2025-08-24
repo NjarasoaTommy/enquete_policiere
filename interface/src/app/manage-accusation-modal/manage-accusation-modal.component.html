@@ -1,1 +1,5 @@
 <p>manage-accusation-modal works!</p>
+<h1>Preuve<span *ngIf="facts.length > 0">s</span></h1>
+<ul>
+  <li *ngFor="let fact of facts">{{ fact }}</li>
+</ul>
