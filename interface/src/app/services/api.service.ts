@@ -14,4 +14,10 @@ export class ApiService {
   getAllAccusationsService(): Observable<any> {
     return this.http.get(`${this.apiUrl}/list_personnes_jugee`);
   }
+  getAllFactsService(nom: string, crime: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/list_faits`, {
+      nom: nom,
+      crime: crime,
+    });
+  }
 }
