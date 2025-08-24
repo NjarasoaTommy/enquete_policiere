@@ -4,6 +4,7 @@
     <tr>
       <th>Crime</th>
       <th>Personne</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,15 @@
     <tr *ngFor="let accusation of accusations" key="index">
       <td>{{ accusation.crime }}</td>
       <td>{{ accusation.nom }}</td>
+      <td>
+        <button mat-raised-button (click)="manageAccusation()">Gérer</button>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<div class="modal" *ngIf="isAccusationManaged">
+  <div class="modal-content">
+    <p>TEST</p>
+  </div>
+</div>
