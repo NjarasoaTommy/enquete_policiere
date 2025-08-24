@@ -1,8 +1,31 @@
-<p>manage-accusation-modal works!</p>
-<h1>Preuve<span *ngIf="facts.length > 0">s</span></h1>
-<ul>
-  <li *ngFor="let fact of facts">{{ fact }}</li>
-</ul>
+<div class="parent">
+  <h1>
+    Informations sur l'accusation de "{{ nom }}"" concernant le crime : "{{
+      crime
+    }}"
+  </h1>
+  <h2>
+    Preuve<span *ngIf="facts.length > 0">s</span>(fait<span
+      *ngIf="facts.length > 0"
+      >s</span
+    >)
+  </h2>
+  <ul>
+    <li *ngFor="let fact of facts">{{ fact }}</li>
+  </ul>
 
-<br />
-<h2>Résultat : {{ resultat }}</h2>
+  <br />
+  <p>
+    <span class="title">Résultat : </span>
+    <span
+      [ngClass]="{
+        resultat: true,
+        guilty: resultat == 'guilty',
+        not_guilty: resultat == 'not_guilty'
+      }"
+      >{{ resultat }}</span
+    >
+  </p>
+
+  <a routerLink="../accusations">Liste de accusations</a>
+</div>
