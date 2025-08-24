@@ -1,0 +1,28 @@
+ul {
+  display: flex;
+  flex-direction: row;
+  background-color: blue;
+}
+
+li {
+  list-style: none;
+}
+
+li a {
+  padding: 10px 20px;
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+li a:hover {
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+}
+
+li a.active {
+  color: #000;
+  font-weight: bolder;
+}
