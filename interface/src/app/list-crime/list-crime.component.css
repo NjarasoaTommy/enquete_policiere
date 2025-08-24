@@ -1,0 +1,19 @@
+.parent {
+  width: 500px;
+  margin: auto;
+}
+
+h1 {
+  color: blue;
+  text-align: center;
+  font-family: cursive;
+}
+
+li {
+  list-style-type: none;
+  border: 2px solid black;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
