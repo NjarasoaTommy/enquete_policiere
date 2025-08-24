@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../services/api.service';
-import { ManageAccusationModalComponent } from '../manage-accusation-modal/manage-accusation-modal.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDialog } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-accusation',
-  imports: [CommonModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './list-accusation.component.html',
   styleUrl: './list-accusation.component.css',
 })
 export class ListAccusationComponent implements OnInit {
   accusations: any[] = [];
   isAccusationManaged = false;
-  constructor(private api_service: ApiService, private dialog: MatDialog) {}
+  constructor(private api_service: ApiService) {}
   ngOnInit() {
     this.getAllAccusations();
   }
@@ -26,15 +23,7 @@ export class ListAccusationComponent implements OnInit {
         this.accusations = all_accusations;
       });
   }
-  manageAccusation() {
-    const dialogRef = this.dialog.open(ManageAccusationModalComponent);
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        console.log('VITA :', result);
-      }
-    });
-  }
   closeAccusationManagementModal() {
     this.isAccusationManaged = false;
   }

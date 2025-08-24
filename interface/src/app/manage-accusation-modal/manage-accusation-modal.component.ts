@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manage-accusation-modal',
@@ -8,8 +7,5 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrl: './manage-accusation-modal.component.css',
 })
 export class ManageAccusationModalComponent {
-  constructor(public dialogRef: MatDialogRef<ManageAccusationModalComponent>) {}
-  close() {
-    this.dialogRef.close();
-  }
+  constructor() {}
 }
