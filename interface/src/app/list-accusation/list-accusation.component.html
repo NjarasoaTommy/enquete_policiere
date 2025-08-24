@@ -15,7 +15,11 @@
       <td>{{ accusation.crime }}</td>
       <td>{{ accusation.nom }}</td>
       <td>
-        <a routerLink="../manage-accusation">Gérer</a>
+        <a
+          routerLink="../manage-accusation"
+          [queryParams]="{ nom: accusation.nom, crime: accusation.crime }"
+          >Gérer</a
+        >
       </td>
     </tr>
   </tbody>
