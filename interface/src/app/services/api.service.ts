@@ -11,4 +11,7 @@ export class ApiService {
   getAllCrimesService(): Observable<any> {
     return this.http.get(`${this.apiUrl}/list_crimes`);
   }
+  getAllAccusationsService(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/list_personnes_jugee`);
+  }
 }
