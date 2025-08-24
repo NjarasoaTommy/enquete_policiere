@@ -72,7 +72,7 @@ is_guilty(Suspect, escroquerie) :-
 :- http_handler(root(list_personnes_jugee), list_personnes, []).
 
 % Déclaration de la route de liste des crimes
-:- http_handler(root(list_crime), list_crimes, []).
+:- http_handler(root(list_crimes), list_crimes, []).
 
 % Déclaration de la route de liste des faits pour un accusé
 :- http_handler(root(list_faits), list_facts, []).
@@ -83,27 +83,43 @@ is_guilty(Suspect, escroquerie) :-
 % Route(middleware) : /juger
 judge(Request) :-
     cors_enable(Request, [methods([get,post,options])]),  % Autoriser GET, POST, OPTIONS
-    http_read_json_dict(Request, DictIn),
+    (   member(method(options), Request)
+    ->  % Réponse vide pour les pré-requêtes OPTIONS
+        format('~n')
+    ;   % GET réel
+        http_read_json_dict(Request, DictIn),
 
-    atom_string(Nom_atom, DictIn.nom),
-    atom_string(Crime_atom, DictIn.crime),
-    
-    is_guilty(Nom_atom, Crime_atom) ->
-        reply_json_dict(_{result : "guilty"}, []);
-        reply_json_dict(_{result : "not_guilty"}, []).
+        atom_string(Nom_atom, DictIn.nom),
+        atom_string(Crime_atom, DictIn.crime),
+        
+        is_guilty(Nom_atom, Crime_atom) ->
+            reply_json_dict(_{result : "guilty"}, []);
+            reply_json_dict(_{result : "not_guilty"}, [])
+    ).
 
 
 % Lister toutes les personnes accusées (middleware) : /list_personnes_jugee
 list_personnes(Request) :-
     cors_enable(Request, [methods([get,options])]),
-    findall(_{nom:Nom, crime:CrimeType}, has_motive(Nom, CrimeType), Liste),
-    reply_json_dict(Liste, []).
+    (   
+        member(method(options), Request)
+    ->  % Réponse vide pour les pré-requêtes OPTIONS
+        format('~n')
+    ;   % GET réel
+        findall(_{nom:Nom, crime:CrimeType}, has_motive(Nom, CrimeType), Liste),
+        reply_json_dict(Liste, [])
+    ).
 
-% Lister toutes les crimes (middleware) : /list_crime
+% Lister toutes les crimes (middleware) : /list_crimes
 list_crimes(Request) :-
-    cors_enable(Request, [methods([get,options])]),
-    findall(CrimeType, crime_type(CrimeType), Liste),
-    reply_json_dict(Liste, []).
+    cors_enable(Request, [methods([get, options])]),
+    (   member(method(options), Request)
+    ->  % Réponse vide pour les pré-requêtes OPTIONS
+        format('~n')
+    ;   % GET réel
+        findall(CrimeType, crime_type(CrimeType), Liste),
+        reply_json_dict(Liste, [])
+    ).
 
 
 
@@ -150,24 +166,33 @@ get_all_facts(Nom, Crime, Facts) :-
 
 list_facts(Request) :-
     cors_enable(Request, [methods([get, post, options])]),
-    http_read_json_dict(Request, JSONDict),
-    atom_string(Nom_atom, JSONDict.nom),
-    atom_string(Crime_atom, JSONDict.crime),
-    get_all_facts(Nom_atom, Crime_atom, Facts),
-    reply_json_dict(_{nom: JSONDict.nom, crime: JSONDict.crime, facts: Facts}, []).
+    (   member(method(options), Request)
+    ->  % Réponse vide pour les pré-requêtes OPTIONS
+        format('~n')
+    ;   % GET réel
+        http_read_json_dict(Request, JSONDict),
+        atom_string(Nom_atom, JSONDict.nom),
+        atom_string(Crime_atom, JSONDict.crime),
+        get_all_facts(Nom_atom, Crime_atom, Facts),
+        reply_json_dict(_{nom: JSONDict.nom, crime: JSONDict.crime, facts: Facts}, [])
+    ).
 
 
 % Ajouter un fait
 add_fact(Request) :-
     cors_enable(Request, [methods([post,options])]),
-    http_read_json_dict(Request, DictIn),
-    atom_string(PreAtom, DictIn.pre),
-    atom_string(NomAtom, DictIn.nom),
-    atom_string(CrimeAtom, DictIn.crime),
-    add_fact_for_person_crime(NomAtom, CrimeAtom, PreAtom),
-    reply_json_dict(_{status:"Fait ajouté avec succès"}, []).
+    (   member(method(options), Request)
+    ->  % Réponse vide pour les pré-requêtes OPTIONS
+        format('~n')
+    ;   % GET réel
+        http_read_json_dict(Request, DictIn),
+        atom_string(PreAtom, DictIn.pre),
+        atom_string(NomAtom, DictIn.nom),
+        atom_string(CrimeAtom, DictIn.crime),
+        add_fact_for_person_crime(NomAtom, CrimeAtom, PreAtom),
+        reply_json_dict(_{status:"Fait ajouté avec succès"}, [])
+    ).
 
 
-% Lancer le serveur sur le port 8080
 server(Port) :-
     http_server(http_dispatch, [port(Port)]).
