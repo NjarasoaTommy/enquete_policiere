@@ -1,3 +1,5 @@
+:- encoding(utf8).
+
 % Importation des modules nécessaires
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
@@ -163,7 +165,7 @@ add_fact(Request) :-
     atom_string(NomAtom, DictIn.nom),
     atom_string(CrimeAtom, DictIn.crime),
     add_fact_for_person_crime(NomAtom, CrimeAtom, PreAtom),
-    reply_json_dict(_{status:"fait ajouté avec succès"}, []).
+    reply_json_dict(_{status:"Fait ajouté avec succès"}, []).
 
 
 % Lancer le serveur sur le port 8080
