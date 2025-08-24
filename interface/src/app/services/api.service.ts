@@ -20,4 +20,10 @@ export class ApiService {
       crime: crime,
     });
   }
+  getResultService(nom: string, crime: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/juger`, {
+      nom: nom,
+      crime: crime,
+    });
+  }
 }
