@@ -1,0 +1,39 @@
+.parent {
+  width: 500px;
+  margin: auto;
+}
+
+h1 {
+  color: blue;
+  text-align: center;
+  font-family: cursive;
+}
+
+table {
+  width: 100%;
+}
+
+tr {
+  box-shadow: 2px 2px 2px black;
+}
+td,
+th {
+  padding: 10px 20px;
+}
+
+th {
+  font-family: cursive;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+td a {
+  text-decoration: none;
+  padding: 5px 0px;
+  background-color: green;
+  color: #fff;
+  border-radius: 10px;
+  width: 100px;
+  text-align: center;
+  display: block;
+}

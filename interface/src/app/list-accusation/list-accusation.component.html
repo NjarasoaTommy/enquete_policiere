@@ -1,32 +1,34 @@
-<p>list-accusation works!</p>
-<table>
-  <thead>
-    <tr>
-      <th>Crime</th>
-      <th>Personne</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngIf="accusations.length == 0">
-      <td colspan="2">Il n'y a pas d'accusation pour le moment</td>
-    </tr>
-    <tr *ngFor="let accusation of accusations" key="index">
-      <td>{{ accusation.crime }}</td>
-      <td>{{ accusation.nom }}</td>
-      <td>
-        <a
-          routerLink="../manage-accusation"
-          [queryParams]="{ nom: accusation.nom, crime: accusation.crime }"
-          >Gérer</a
-        >
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="parent">
+  <h1>List des accusations</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Crime</th>
+        <th>Personne</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="accusations.length == 0">
+        <td colspan="2">Il n'y a pas d'accusation pour le moment</td>
+      </tr>
+      <tr *ngFor="let accusation of accusations" key="index">
+        <td>{{ accusation.crime }}</td>
+        <td>{{ accusation.nom }}</td>
+        <td>
+          <a
+            routerLink="../manage-accusation"
+            [queryParams]="{ nom: accusation.nom, crime: accusation.crime }"
+            >Détails</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<div class="modal" *ngIf="isAccusationManaged">
-  <div class="modal-content">
-    <p>TEST</p>
+  <div class="modal" *ngIf="isAccusationManaged">
+    <div class="modal-content">
+      <p>TEST</p>
+    </div>
   </div>
 </div>
