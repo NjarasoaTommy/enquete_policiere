@@ -1,0 +1,18 @@
+<p>list-accusation works!</p>
+<table>
+  <thead>
+    <tr>
+      <th>Crime</th>
+      <th>Personne</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="accusations.length == 0">
+      <td colspan="2">Il n'y a pas d'accusation pour le moment</td>
+    </tr>
+    <tr *ngFor="let accusation of accusations" key="index">
+      <td>{{ accusation.crime }}</td>
+      <td>{{ accusation.nom }}</td>
+    </tr>
+  </tbody>
+</table>
