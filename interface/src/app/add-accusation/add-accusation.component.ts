@@ -28,7 +28,7 @@ export class AddAccusationComponent implements OnInit {
     this.api_service
       .addAccusationService(this.model.nom, this.model.crime)
       .subscribe((result_status) => {
-        alert(result_status);
+        alert(result_status.status);
       });
   }
 }
