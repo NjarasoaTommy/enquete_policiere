@@ -29,4 +29,11 @@ export const routes: Routes = [
         (m) => m.AddAccusationComponent
       ),
   },
+  {
+    path: 'ajouter-preuve',
+    loadComponent: () =>
+      import('./add-proof/add-proof.component').then(
+        (m) => m.AddProofComponent
+      ),
+  },
 ];

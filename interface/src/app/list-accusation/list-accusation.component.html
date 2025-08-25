@@ -16,11 +16,18 @@
         <td>{{ accusation.crime }}</td>
         <td>{{ accusation.nom }}</td>
         <td>
-          <a
-            routerLink="../manage-accusation"
-            [queryParams]="{ nom: accusation.nom, crime: accusation.crime }"
-            >Détails</a
-          >
+          <div class="btn-parent">
+            <a
+              routerLink="../manage-accusation"
+              [queryParams]="{ nom: accusation.nom, crime: accusation.crime }"
+              >Détails</a
+            >
+            <a
+              routerLink="../ajouter-preuve"
+              [queryParams]="{ nom: accusation.nom, crime: accusation.crime }"
+              >Ajouter des preuves</a
+            >
+          </div>
         </td>
       </tr>
     </tbody>
