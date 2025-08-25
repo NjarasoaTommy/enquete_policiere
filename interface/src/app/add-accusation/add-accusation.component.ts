@@ -25,6 +25,10 @@ export class AddAccusationComponent implements OnInit {
     });
   }
   onSubmit(form: any) {
-    console.log('Formulaire soumis : ', this.model);
+    this.api_service
+      .addAccusationService(this.model.nom, this.model.crime)
+      .subscribe((result_status) => {
+        alert(result_status);
+      });
   }
 }

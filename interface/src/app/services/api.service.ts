@@ -26,4 +26,11 @@ export class ApiService {
       crime: crime,
     });
   }
+  addAccusationService(nom: string, crime: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/ajouter_faits`, {
+      nom: nom,
+      crime: crime,
+      pre: 'has_motive',
+    });
+  }
 }
