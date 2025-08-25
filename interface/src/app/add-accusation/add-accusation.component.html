@@ -1,0 +1,14 @@
+<div class="parent">
+  <h1>Accuser quelqu'un</h1>
+  <form #form="ngForm" (submit)="onSubmit(form)">
+    <label for="nom">NOM:</label>
+    <input type="text" name="nom" id="nom" [(ngModel)]="model.nom" /><br />
+    <label for="crime">CRIME:</label>
+    <select name="crime" id="crime" [(ngModel)]="model.crime">
+      <option *ngFor="let crime of crimes" [value]="crime">
+        {{ crime }}
+      </option></select
+    ><br /><br />
+    <button type="submit">Accuser</button>
+  </form>
+</div>
