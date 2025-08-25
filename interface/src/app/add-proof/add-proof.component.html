@@ -3,7 +3,12 @@
     Gestion des preuves sur l'accusation de "{{ nom }}" concernant le crime :
     "{{ crime }}"
   </h1>
-  <h2>Preuve<span *ngIf="facts.length > 1">s</span> déja receuillies</h2>
+  <h2>
+    Preuve<span *ngIf="facts.length > 1">s</span> déja receuillie<span
+      *ngIf="facts.length > 1"
+      >s</span
+    >
+  </h2>
   <ul>
     <li *ngFor="let fact of facts">{{ fact }}</li>
   </ul>
