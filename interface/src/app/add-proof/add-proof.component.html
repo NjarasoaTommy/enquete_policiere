@@ -16,10 +16,15 @@
       >s</span
     >
   </h2>
-  <form>
+  <form #form="ngForm" (submit)="onSubmit(form)">
     <div formArrayName="proofs">
       <div *ngFor="let proof of remain_proofs; let i = index" key="index">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          name="proofs"
+          [value]="proof"
+          (change)="onCheckboxChange($event)"
+        />
         <span>{{ proof }}</span>
       </div>
     </div>

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { RouterLink } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-add-proof',
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './add-proof.component.html',
   styleUrl: './add-proof.component.css',
 })
@@ -23,6 +23,9 @@ export class AddProofComponent implements OnInit {
     'owns_fake_identity',
     'eyewitness_identification',
   ];
+  model = {
+    proofs: [] as string[],
+  };
   nom = '';
   crime = '';
   ngOnInit(): void {
@@ -32,6 +35,22 @@ export class AddProofComponent implements OnInit {
       this.crime = params.crime;
     });
   }
+
+  onCheckboxChange(event: any) {
+    const value = event.target.value;
+    if (event.target.checked) {
+      this;
+      this.model.proofs.push(value);
+    } else {
+      this.model.proofs = this.model.proofs;
+      filter((proof) => proof != value);
+    }
+  }
+
+  onSubmit(form: any) {
+    console.log('Submited : ', this.model);
+  }
+
   getAllFacts(nom: string, crime: string) {
     this.api_service
       .getAllFactsService(nom, crime)
