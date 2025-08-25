@@ -22,4 +22,11 @@ export const routes: Routes = [
         (m) => m.ListAccusationComponent
       ),
   },
+  {
+    path: 'ajouter-crime',
+    loadComponent: () =>
+      import('./add-accusation/add-accusation.component').then(
+        (m) => m.AddAccusationComponent
+      ),
+  },
 ];
