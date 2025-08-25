@@ -48,7 +48,13 @@ export class AddProofComponent implements OnInit {
   }
 
   onSubmit(form: any) {
-    console.log('Submited : ', this.model);
+    this.model.proofs.forEach((proof) => {
+      this.api_service
+        .addAccusationService(this.nom, this.crime, proof)
+        .subscribe((result) =>
+          alert('Preuve "' + proof + '" ajoutée avec succès')
+        );
+    });
   }
 
   getAllFacts(nom: string, crime: string) {
