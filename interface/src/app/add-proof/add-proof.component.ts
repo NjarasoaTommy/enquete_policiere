@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-add-proof',
@@ -42,8 +41,7 @@ export class AddProofComponent implements OnInit {
       this;
       this.model.proofs.push(value);
     } else {
-      this.model.proofs = this.model.proofs;
-      filter((proof) => proof != value);
+      this.model.proofs = this.model.proofs.filter((proof) => proof != value);
     }
   }
 
